@@ -1,11 +1,35 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import Mesto from '../views/Mesto.vue'
+import AddMesto from '../views/AddMesto.vue'
+import UpdateMesto from '../views/UpdateMesto.vue'
+import PageNotFound from '../views/PageNotFound'
 
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'Home',
     component: HomeView
+  },
+  {
+    path: '/mesto',
+    name: 'Mesto',
+    component: Mesto
+  },
+  {
+    path: '/mesto/add',
+    name: 'AddMesto',
+    component: AddMesto
+  },
+  {
+    path: '/mesto/update/:mestoId',
+    name: 'UpdateMesto',
+    component: UpdateMesto
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'PageNotFound',
+    component: PageNotFound
   },
   {
     path: '/about',
@@ -18,7 +42,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(process.env.BASE_URL),
   routes
 })
 
