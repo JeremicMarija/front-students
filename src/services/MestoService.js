@@ -13,4 +13,19 @@ export class MestoService{
   return axios.get(dataURL);
  }
 
+ static createMesto(mesto){
+  let dataURL = `${this.serverURL}/mesto/save`;
+  return axios.post(dataURL, mesto);
+ }
+
+ static updateMesto(mesto,mestoId){
+  let dataURL = `${this.serverURL}/mesto/update/${mestoId}`;
+  return axios.put(dataURL, mesto);
+ }
+
+ static deleteMesto(mestoId){
+  let dataURL = `${this.serverURL}/mesto/delete/${mestoId}`;
+  return axios.delete(dataURL);
+ }
+
 }

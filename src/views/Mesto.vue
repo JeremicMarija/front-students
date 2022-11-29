@@ -36,13 +36,13 @@
       </tr>
      </thead>
      <tbody>
-      <tr>
-       <td>11000</td>
-       <td>Beograd</td>
-       <td>2000000</td>
+      <tr v-for="mesto of mestoArr" :key="mesto">
+       <td>{{mesto.ptt}}</td>
+       <td>{{mesto.naziv}}</td>
+       <td>{{mesto.brojStanovnika}}</td>
        <td>
-        <router-link to="/mesto/update/:mestoId" class="btn btn-success btn-sm">Izmeni</router-link>
-        <button to="" class="btn btn-danger btn-sm mx-2">Obriši</button>
+        <router-link :to="`/mesto/update/${mesto.ptt}`" class="btn btn-success btn-sm">Izmeni</router-link>
+        <button @click="deleteMesto(mesto.ptt)" class="btn btn-danger btn-sm mx-2">Obriši</button>
         </td>
       </tr>
      </tbody>
@@ -53,11 +53,49 @@
 </template>
 
 <script>
+import {MestoService} from '@/services/MestoService';
 import Spinner from '@/components/Spinner.vue'
 export default{
  name: "Mesto",
  components: {
   Spinner,
+ },
+ data: function(){
+  return{
+    loading: false,
+    mestoArr: [],
+    errorMessage: null,
+    ptt: '',
+    naziv: '',
+    brojStanovnika: ''
+  }
+ },
+ created: async function(){
+  try{
+    this.loading = true;
+    let response = await MestoService.getAllMesta();
+    this.mestoArr = response.data;
+    this.loading = false;
+  }catch (error){
+    this.errorMessage = error;
+    this.loading = false;
+  }
+ },
+ methods:{
+  deleteMesto: async function(mestoId){
+    try {
+      this.loading = true;
+      let response = await MestoService.deleteMesto(mestoId);
+      if(response){
+        let response = await MestoService.getAllMesta();
+        this.mestoArr = response.data;
+        this.loading = false;
+      }
+    } catch (error) {
+        this.errorMessage = error;
+        this.loading = false;
+    }
+  }
  }
 }
 </script>

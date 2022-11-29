@@ -1,7 +1,7 @@
 <template>
  <nav class="navbar navbar-dark bg-success navbar-expand-sm">
   <div class="container">
-   <router-link to="/" class="navbar-brand"><i class="fa-solid fa-user-gear mx-2"></i>Sistem upravljanja </router-link>
+   <router-link to="/" class="navbar-brand"><i class="fa-solid fa-user-gear mx-2"></i>Evidencija Studenata </router-link>
     <div class="navbar navbar-expand-sm">
      <ul class="navbar-nav">
       <li class="nav-item">

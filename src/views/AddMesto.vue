@@ -31,15 +31,15 @@
  <div class="container mt-3">
   <div class="row">
    <div class="col-md-4">
-    <form action="">
+    <form action="" @submit.prevent="mestoCreate()">
      <div class="mb-2">
-      <input type="text" class="form-control" placeholder="Ptt">
+      <input v-model="mesto.ptt" type="text" class="form-control" placeholder="Ptt">
      </div>
      <div class="mb-2">
-      <input type="text" class="form-control" placeholder="Naziv">
+      <input v-model="mesto.naziv" type="text" class="form-control" placeholder="Naziv">
      </div>
      <div class="mb-2">
-      <input type="text" class="form-control" placeholder="Broj stanovnika">
+      <input v-model="mesto.brojStanovnika" type="text" class="form-control" placeholder="Broj stanovnika">
      </div>
      <div class="mt-3">
       <input type="submit" class="btn btn-success text-white" value="Dodaj">
@@ -53,15 +53,41 @@
    </div>
   </div>
  </div>
+
+ <pre>{{mesto}}</pre>
 </template>
 
 <script>
+import {MestoService} from '@/services/MestoService';
 import Spinner from '@/components/Spinner.vue'
 export default{
  name: "AddMesto",
  components: {
   Spinner
  },
+ data: function(){
+  return{
+   mesto:{
+    ptt: '',
+    naziv: '',
+    brojStanovnika: ''
+   }
+  }
+ },
+ methods: {
+  mestoCreate: async function(){
+   try{
+    let response = await MestoService.createMesto(this.mesto);
+    if(response){
+     return this.$router.push('/mesto');
+    }else{
+     return this.$router.push('/mesto/add')
+    }
+   }catch(error){
+    console.log(error);
+   }
+  }
+ }
 }
 
 </script>
