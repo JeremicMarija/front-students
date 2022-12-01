@@ -87,8 +87,8 @@ export default{
       this.loading = true;
       let response = await MestoService.deleteMesto(mestoId);
       if(response){
-        let response = await MestoService.getAllMesta();
-        this.mestoArr = response.data;
+        let deleteResponse = await MestoService.getAllMesta();
+        this.mestoArr = deleteResponse.data;
         this.loading = false;
       }
     } catch (error) {

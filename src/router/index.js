@@ -3,7 +3,11 @@ import HomeView from '../views/HomeView.vue'
 import Mesto from '../views/Mesto.vue'
 import AddMesto from '../views/AddMesto.vue'
 import UpdateMesto from '../views/UpdateMesto.vue'
+import Fakultet from '../views/Fakultet.vue'
+import AddFakultet from '../views/AddFakultet.vue'
+import UpdateFakultet from '../views/UpdateFakultet.vue'
 import PageNotFound from '../views/PageNotFound'
+
 
 const routes = [
   {
@@ -25,6 +29,21 @@ const routes = [
     path: '/mesto/update/:mestoId',
     name: 'UpdateMesto',
     component: UpdateMesto
+  },
+  {
+    path: '/fakultet',
+    name: 'Fakultet',
+    component: Fakultet
+  },
+  {
+    path: '/fakultet/add',
+    name: 'AddFakultet',
+    component: AddFakultet
+  },
+  {
+    path: '/fakultet/update/:fakultetId',
+    name: 'UpdateFakultet',
+    component: UpdateFakultet
   },
   {
     path: '/:pathMatch(.*)*',
