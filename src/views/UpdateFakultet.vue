@@ -39,10 +39,10 @@
       <input v-model="fakultet.naziv" type="text" class="form-control" placeholder="Naziv">
      </div>
      <div class="mb-2">
-      <!-- <select name="" id="" :disabled = "isDisabled" ref="selectMesto" v-model="fakultet.mestoId" class="form-control" v-if="mestoArr.length > 0">
-       <option :value="mesto.ptt" v-for="mesto of mestoArr" :key="mesto.ptt">{{mesto.naziv}}</option>
-      </select> -->
-      <input disabled :value="mesto.naziv" type="text" class="form-control">
+      <select name="" id="" ref="selectMesto" v-model="fakultet.mestoId" class="form-control" v-if="mestoArr.length > 0">
+         <option :value="mesto.ptt" v-for="mesto of mestoArr" :key="mesto.ptt">{{mesto.naziv}}</option>
+      </select>
+      <!-- <input disabled :value="mesto.naziv" type="text" class="form-control"> -->
      </div>
      <div class="mt-3">
       <input type="submit" class="btn btn-success text-white" value="Izmeni">
@@ -71,20 +71,17 @@ export default{
   Spinner,
  },
  data: function(){
+   const fMestoId = this.$route.params.mestoId || '';
   return{
    fakultetId: this.$route.params.fakultetId,
    loading: false,
    fakultet:{
     maticniBroj: '',
     naziv: '',
-    mestoId: '',
+    mestoId: fMestoId,
    },
    errorMessage: null,
-   mesto:{
-    ptt:'',
-    naziv:'',
-    brojStanovnika: '',
-   },
+   mestoArr:[],
   }
  },
  created: async function(){
@@ -93,9 +90,12 @@ export default{
    let response = await FakultetService.getFakultet(this.fakultetId);
    this.fakultet = response.data;
    // console.log(response.data);
-   let mestoResponse = await MestoService.getMesto(response.data.mesto.ptt);
-   // console.log(mestoResponse.data);
-   this.mesto = mestoResponse.data;
+   let mestoResponse = await MestoService.getMesto(this.fakultet.mestoId);
+   console.log(mestoResponse.data);
+   // this.mesto = mestoResponse.data;
+   let responseMestoAll = await MestoService.getAllMesta();
+   // console.log(responseMestoAll);
+   this.mestoArr = responseMestoAll.data;
    this.loading = false;
   } catch (error) {
      this.errorMessage = error;
