@@ -8,5 +8,10 @@ export class StudentService{
   let dataURL = `${this.serverURL}/student/all`;
   return axios.get(dataURL);
  }
+
+ static createStudent(student){
+  let dataURL = `${this.serverURL}/student/save`;
+  return axios.post(dataURL, student)
+ }
  
 }

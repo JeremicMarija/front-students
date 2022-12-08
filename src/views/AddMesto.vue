@@ -36,7 +36,7 @@
       <input v-model="mesto.ptt" type="text" class="form-control" placeholder="Ptt">
      </div>
      <div class="mb-2">
-      <input v-model="mesto.naziv" type="text" class="form-control" placeholder="Naziv">
+      <input v-model="mesto.naziv" type="text" class="form-control" placeholder="Naziv" pattern="^[A-Z]+[a-zA-Zs]{2,35}$">
      </div>
      <div class="mb-2">
       <input v-model="mesto.brojStanovnika" type="text" class="form-control" placeholder="Broj stanovnika">

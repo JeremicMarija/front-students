@@ -7,6 +7,7 @@ import Fakultet from '../views/Fakultet.vue'
 import AddFakultet from '../views/AddFakultet.vue'
 import UpdateFakultet from '../views/UpdateFakultet.vue'
 import Student from '../views/Student.vue'
+import AddStudent from '../views/AddStudent.vue'
 import PageNotFound from '../views/PageNotFound'
 
 
@@ -50,6 +51,11 @@ const routes = [
     path: '/student',
     name: 'Student',
     component: Student
+  },
+  {
+    path: '/student/add',
+    name: 'AddStudent',
+    component: AddStudent
   },
   {
     path: '/:pathMatch(.*)*',
