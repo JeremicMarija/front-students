@@ -41,20 +41,20 @@
      </thead>
      <tbody>
       <tr v-for="student of studentArr" :key="student">
-       <td>{{student.brojIndeksa}}</td>
-       <td>{{student.ime}}</td>
-       <td>{{student.prezime}}</td>
-       <td>{{student.datumRodjenja}}</td>
-       <td>{{student.jmbg}}</td>
-       <td>{{student.starost}}</td>
-       <td>
-        <ul class="list-group list-group-flush">
-         <li v-for="fakultet of student.fakulteti" :key="fakultet" class="list-group-item bg-transparent">{{fakultet.naziv}}</li>
-        </ul>
-       </td>
-       <td>
-        <router-link :to="`/student/update/${student.brojIndeksa}`" class="btn btn-success btn-sm">Izmeni</router-link>
-        <button @click="deleteFakultet(student.brojIndeksa)" class="btn btn-danger btn-sm mx-2">Obriši</button>
+        <td>{{student.brojIndeksa}}</td>
+        <td>{{student.ime}}</td>
+        <td>{{student.prezime}}</td>
+        <td>{{student.datumRodjenja}}</td>
+        <td>{{student.jmbg}}</td>
+        <td>{{student.starost}}</td>
+        <td>
+          <ul class="list-group list-group-flush">
+            <li v-for="fakultet of student.fakulteti" :key="fakultet" class="list-group-item bg-transparent">{{fakultet.naziv}}</li>
+          </ul>
+        </td>
+        <td>
+          <router-link :to="`/student/update/${student.brojIndeksa}`" class="btn btn-success btn-sm">Izmeni</router-link>
+          <button @click="deleteFakultet(student.brojIndeksa)" class="btn btn-danger btn-sm mx-2">Obriši</button>
         </td>
       </tr>
      </tbody>
@@ -63,6 +63,7 @@
   </div>
  </div>
 </template>
+
 
 <script>
 import Spinner from '@/components/Spinner.vue'
@@ -89,6 +90,23 @@ export default{
   } catch (error) {
      this.errorMessage = error;
      this.loading = false;
+  }
+ },
+ methods: {
+  deleteFakultet: async function(studentId){
+    studentId = studentId.replace("/", "-");
+    try {
+      this.loading = true;
+      let response = await StudentService.deleteStudent(studentId);
+      if(response){
+        let deleteResponse = await StudentService.getAllStudent();
+        this.studentArr = deleteResponse.data;
+        this.loading = false;
+      }
+    } catch (error) {
+        this.errorMessage = error;
+        this.loading = false;
+    }
   }
  }
 }

@@ -13,5 +13,10 @@ export class StudentService{
   let dataURL = `${this.serverURL}/student/save`;
   return axios.post(dataURL, student)
  }
+
+ static deleteStudent(studentId){
+  let dataURL = `${this.serverURL}/student/delete/${studentId}`;
+  return axios.delete(dataURL);
+ }
  
 }
