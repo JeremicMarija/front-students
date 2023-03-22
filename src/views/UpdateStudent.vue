@@ -1,10 +1,10 @@
 <template>
- <div class="container mt-3">
-  <div class="row">
-   <div class="col">
-    <p class="h3 text-success fw-bold">Dodaj Studenta</p>
+  <div class="container mt-3">
+   <div class="row">
+    <div class="col">
+     <p class="h3 text-success fw-bold">Izmeni Studenta</p>
+    </div>
    </div>
-  </div>
  </div>
 
  <!-- Spinner -->
@@ -27,11 +27,10 @@
    </div>
   </div>
  </div>
-
  <div class="container mt-3">
   <div class="row">
    <div class="col-md-4">
-    <form action="" @submit.prevent="studentCreate()">
+    <form action="" @submit.prevent="studentUpdate()">
      <div class="mb-2">
       <input v-model="student.brojIndeksa" type="text" class="form-control" placeholder="Broj indeksa">
      </div>
@@ -49,17 +48,19 @@
      </div>
      <div class="mb-2">
       <VueMultiselect
-        v-model="student.fakultetIds"
+        v-model="fakultetFullIds"
         label="naziv" 
         track-by="maticniBroj" 
         :multiple="true" 
         placeholder="Izaberite fakultet"
         :options="fakultetArr"
-        @select="onSelect">
+        @select="onSelect"
+        :clearable="false"
+        :hideSelected = "true">
       </VueMultiselect>
      </div>
      <div class="mt-3">
-      <input type="submit" class="btn btn-success text-white" value="Dodaj">
+      <input type="submit" class="btn btn-success text-white" value="Izmeni">
      </div>
     </form>
    </div>
@@ -67,72 +68,90 @@
   <div class="row mt-3">
    <div class="col-md-4 back-btn">
     <router-link to="/student" class="btn btn-success btn-sm"><i class="fa fa-arrow-alt-circle-left"></i> Nazad</router-link>
-   </div>
+   </div>  
   </div>
  </div>
- <!-- {{student}} -->
+ 
 </template>
 
 <script>
+
 import Spinner from '@/components/Spinner.vue'
 import VueMultiselect from "vue-multiselect"
 import {StudentService} from '@/services/StudentService'
 import {FakultetService} from '@/services/FakultetService'
 
 export default{
-  name: 'AddStudent',
+ name: "UpdateStudent",
   components: {
-    Spinner,
-    VueMultiselect
-  },
-  data: function(){
-    return{
-      student:{
-        brojIndeksa: '',
-        ime: '',
-        prezime:'',
-        datumRodjenja: '',
-        jmbg: '',
-        fakultetIds: []
-        },
-      errorMessage: null,
-      fakultetArr:[],
-      selectedIds:[],
+  Spinner,
+  VueMultiselect
+ },
+ data: function(){
+  return{
+   studentId: this.$route.params.studentId,
+   loading: false,
+   student:{
+     brojIndeksa: '',
+     ime: '',
+     prezime:'',
+     datumRodjenja: '',
+     jmbg: '',
+     fakultetIds: [],
+     },
+     errorMessage: null,
+     fakultetArr:[],
+     selectedIds:[],
+     fakultetFullIds: []
+  }
+ },
+ created: async function(){
+  try{
+   this.loading = true;
+   let response = await StudentService.getStudent(this.studentId);
+   this.student = response.data;
+   // console.log(response.data);
+   let responseFakulteti = await FakultetService.getAllFakultet();
+   console.log(responseFakulteti.data);
+   for(let i = 0; i<responseFakulteti.data.length; i++){
+    if(this.student.fakultetIds.includes(responseFakulteti.data[i].maticniBroj)){
+      this.fakultetFullIds.push(responseFakulteti.data[i]);
     }
-  },
-  created: async function(){
-    try {
-      let response = await FakultetService.getAllFakultet();
-      for(let i = 0; i<response.data.length; i++){
-        this.fakultetArr.push(response.data[i]);
-      }
-    } catch (error) {
-      this.errorMessage = error;
-      this.loading = false;
+     this.fakultetArr.push(responseFakulteti.data[i]);
+   }
+   this.loading = false;
+  }catch (error){
+    this.errorMessage = error;
+    this.loading = false;
+  }
+ },
+ methods:{
+  studentUpdate: async function(){
+   let studentApi = {    
+    ...this.student,
+    fakultetIds: this.selectedIds
+   }
+   try {
+    let response = await StudentService.updateStudent(studentApi, this.studentId);
+    if(response){
+     return this.$router.push('/student');
+   }else{
+     return this.$router.push(`/student/update/${this.studentId}`)
     }
+   } catch (error) {
+    console.log(error)
+   }
   },
-  methods:{
-    studentCreate: async function(){
-      let studentApi = {    
-        ...this.student,
-        fakultetIds: this.selectedIds
-      }
-      try {
-        let response = await StudentService.createStudent(studentApi);
-          if(response){
-          return this.$router.push('/student');
-          }else{
-          return this.$router.push('/student/add');
-          }
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    onSelect(option){
+  onSelect(option){
       this.selectedIds.push(option.maticniBroj);
-    }
-  },
+  }
+ }
 }
+
 </script>
 
-<style src="vue-multiselect/dist/vue-multiselect.css"></style>
+<style>
+ .multiselect__tag-icon {
+  display: none;
+ }
+</style>

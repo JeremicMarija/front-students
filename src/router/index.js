@@ -8,6 +8,7 @@ import AddFakultet from '../views/AddFakultet.vue'
 import UpdateFakultet from '../views/UpdateFakultet.vue'
 import Student from '../views/Student.vue'
 import AddStudent from '../views/AddStudent.vue'
+import UpdateStudent from '../views/UpdateStudent'
 import PageNotFound from '../views/PageNotFound'
 
 
@@ -56,6 +57,11 @@ const routes = [
     path: '/student/add',
     name: 'AddStudent',
     component: AddStudent
+  },
+  {
+    path: '/student/update/:studentId',
+    name: 'UpdateStudent',
+    component: UpdateStudent
   },
   {
     path: '/:pathMatch(.*)*',

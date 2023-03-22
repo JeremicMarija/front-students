@@ -53,15 +53,17 @@
           </ul>
         </td>
         <td>
-          <router-link :to="`/student/update/${student.brojIndeksa}`" class="btn btn-success btn-sm">Izmeni</router-link>
+          <router-link :to="`/student/update/${student.trimmedBrojIndeksa}`" class="btn btn-success btn-sm">Izmeni</router-link>
           <button @click="deleteFakultet(student.brojIndeksa)" class="btn btn-danger btn-sm mx-2">Obriši</button>
         </td>
       </tr>
      </tbody>
     </table>
    </div>
+   <!-- {{studentArr}} -->
   </div>
  </div>
+ 
 </template>
 
 
@@ -87,6 +89,12 @@ export default{
     let response = await StudentService.getAllStudent();
     this.studentArr = response.data;
     this.loading = false;
+
+    this.studentArr.forEach(student => {
+      student.trimmedBrojIndeksa = student.brojIndeksa.replace("/", "-");
+    })
+
+    // console.log(this.studentArr, 'this.studentArr');
   } catch (error) {
      this.errorMessage = error;
      this.loading = false;
