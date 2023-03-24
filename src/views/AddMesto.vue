@@ -92,7 +92,7 @@ export default{
        },
       naziv: { 
        required: helpers.withMessage('Polje ne moze biti prazno', required),
-       mestoregex: helpers.withMessage('Polje mora pocinjati velikim slovom', mestoregex),
+       nameregex: helpers.withMessage('Polje mora pocinjati velikim slovom', nameregex),
        maxLength: helpers.withMessage('Polje mora imati maksimum 35 karaktera', maxLength(35)),
        minLength: helpers.withMessage('Polje mora imati minimum 2 karaktera', minLength(2))
        },
@@ -104,7 +104,7 @@ export default{
     }
    }
   })
-  const mestoregex = helpers.regex(/^[A-Z][a-zA-Z\s]*$/)
+  const nameregex = helpers.regex(/^[A-Z][a-zA-Z\s]*$/)
   const v$ = useValidate(rules,state)
 
   return{
