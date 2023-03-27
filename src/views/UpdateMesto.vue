@@ -88,7 +88,7 @@ export default{
     mesto:{
       ptt: {
         required: helpers.withMessage('Polje ne moze biti prazno', required),
-        numeric: helpers.withMessage('Polje mora biti cifra', numeric),
+        numeric: helpers.withMessage('Polje moze sadrzati samo cifre', numeric),
         maxLength: helpers.withMessage('Polje mora imati 5 cifara', maxLength(5)),
         minLength: helpers.withMessage('Polje mora imati 5 cifara', minLength(5))
       },
@@ -100,7 +100,7 @@ export default{
        },
       brojStanovnika: { 
         required: helpers.withMessage('Polje ne moze biti prazno', required),
-        numeric: helpers.withMessage('Polje mora biti cifra', numeric),
+        numeric: helpers.withMessage('Polje moze sadrzati samo cifre', numeric),
         minValue: helpers.withMessage('Polje mora biti vece od nule', minValue(1))
        },
     },

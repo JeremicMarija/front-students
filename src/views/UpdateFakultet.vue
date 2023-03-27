@@ -97,7 +97,7 @@ export default{
       fakultet: {
         maticniBroj: {
           required: helpers.withMessage('Polje ne moze biti prazno', required),
-          numeric: helpers.withMessage('Polje mora biti cifra', numeric),
+          numeric: helpers.withMessage('Polje moze sadrzati samo cifre', numeric),
           maxLength: helpers.withMessage('Polje mora imati 8 cifara', maxLength(8)),
           minLength: helpers.withMessage('Polje mora imati 8 cifara', minLength(8))
           },

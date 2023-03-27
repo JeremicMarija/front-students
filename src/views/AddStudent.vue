@@ -135,7 +135,7 @@ export default{
         },
         jmbg: {
           required: helpers.withMessage('Polje ne moze biti prazno', required),
-          numeric: helpers.withMessage('Polje mora biti cifra', numeric),
+          numeric: helpers.withMessage('Polje moze sadrzati samo cifre', numeric),
           maxLength: helpers.withMessage('Polje mora imati 13 cifara', maxLength(13)),
           minLength: helpers.withMessage('Polje mora imati 13 cifara', minLength(13))
         },
