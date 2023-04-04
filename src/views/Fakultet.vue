@@ -41,7 +41,7 @@
        <td>{{fakultet.naziv}}</td>
        <td>{{fakultet.mesto.naziv}}</td>
        <td>
-        <router-link :to="`/fakultet/update/${fakultet.maticniBroj}`" class="btn btn-success btn-sm">Izmeni</router-link>
+        <router-link :to="`/fakultet/update/${fakultet.maticniBroj}`" class="btn btn-success btn-sm edit">Izmeni</router-link>
         <button @click="deleteFakultet(fakultet.maticniBroj)" class="btn btn-danger btn-sm mx-2">Obriši</button>
         </td>
       </tr>

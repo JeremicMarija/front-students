@@ -10,7 +10,7 @@ const mockMestoArr = MestoService.getAllMesta()
 
 jest.spyOn(axios, 'get').mockResolvedValue(mockMestoArr);
 
-test('routing', async () => {
+test('first test routing, then format input data', async () => {
   routes.push('/')
   // After this line, router is ready
   await routes.isReady()

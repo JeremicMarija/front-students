@@ -33,12 +33,12 @@
    <div class="col-md-4">
     <form action="" @submit.prevent="fakultetUpdate()">
      <div class="mb-2">
-      <input v-model="fakultet.maticniBroj" type="text" class="form-control" placeholder="Matični Broj">
-      <span v-if="v$.fakultet.maticniBroj.$error">{{v$.fakultet.maticniBroj.$errors[0].$message}}</span>
+      <input v-model="fakultet.maticniBroj" type="text" class="form-control inputMaticniBroj" placeholder="Matični Broj">
+      <span class="errorMaticniBroj" v-if="v$.fakultet.maticniBroj.$error">{{v$.fakultet.maticniBroj.$errors[0].$message}}</span>
      </div>
      <div class="mb-2">
-      <input v-model="fakultet.naziv" type="text" class="form-control" placeholder="Naziv">
-      <span v-if="v$.fakultet.naziv.$error">{{v$.fakultet.naziv.$errors[0].$message}}</span>
+      <input v-model="fakultet.naziv" type="text" class="form-control inputNaziv" placeholder="Naziv">
+      <span class="errorNaziv" v-if="v$.fakultet.naziv.$error">{{v$.fakultet.naziv.$errors[0].$message}}</span>
      </div>
      <div class="mb-2">
       <select name="" id="" ref="selectMesto" v-model="fakultet.mestoId" class="form-control" v-if="mestoArr.length > 0">
@@ -118,7 +118,7 @@ export default{
    let response = await FakultetService.getFakultet(this.fakultetId);
    this.fakultet = response.data;
    let mestoResponse = await MestoService.getMesto(this.fakultet.mestoId);
-   console.log(mestoResponse.data);
+   // console.log(mestoResponse.data);
    let responseMestoAll = await MestoService.getAllMesta();
    this.mestoArr = responseMestoAll.data;
    this.loading = false;

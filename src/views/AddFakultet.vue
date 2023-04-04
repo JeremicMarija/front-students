@@ -33,19 +33,19 @@
    <div class="col-md-4">
     <form action="" @submit.prevent="fakultetCreate()">
      <div class="mb-2">
-      <input v-model="fakultet.maticniBroj" type="text" class="form-control" placeholder="Matični Broj">
+      <input v-model="fakultet.maticniBroj" type="text" class="form-control inputMaticniBroj" placeholder="Matični Broj">
       <span class="errorMaticniBroj" v-if="v$.fakultet.maticniBroj.$error">{{v$.fakultet.maticniBroj.$errors[0].$message}}</span>
      </div>
      <div class="mb-2">
-      <input v-model="fakultet.naziv" type="text" class="form-control" placeholder="Naziv">
-      <span v-if="v$.fakultet.naziv.$error">{{v$.fakultet.naziv.$errors[0].$message}}</span>
+      <input v-model="fakultet.naziv" type="text" class="form-control inputNaziv" placeholder="Naziv">
+      <span class="errorNaziv" v-if="v$.fakultet.naziv.$error">{{v$.fakultet.naziv.$errors[0].$message}}</span>
      </div>
      <div class="mb-2">
       <select name="" id="" :disabled = "isDisabled" ref="selectMesto" v-model="fakultet.mestoId" class="form-control addOpacity" v-if="mestoArr.length > 0">
        <option value=""  selected disabled >Izaberi mesto</option>
        <option :value="mesto.ptt" v-for="mesto of mestoArr" :key="mesto.ptt">{{mesto.naziv}}</option>
       </select>
-       <span v-if="v$.fakultet.mestoId.$error">{{v$.fakultet.mestoId.$errors[0].$message}}</span>
+       <span class="errorMestoId" v-if="v$.fakultet.mestoId.$error">{{v$.fakultet.mestoId.$errors[0].$message}}</span>
      </div>
      <div class="mt-3">
       <input type="submit" class="btn btn-success text-white" value="Dodaj">
