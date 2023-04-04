@@ -33,20 +33,19 @@
    <div class="col-md-4">
     <form action="" @submit.prevent="mestoCreate()">
      <div class="mb-2">
-      <input v-model="state.mesto.ptt" type="text" class="form-control" placeholder="Ptt">
-      <span v-if="v$.mesto.ptt.$error">{{v$.mesto.ptt.$errors[0].$message}}</span>
+      <input v-model="mesto.ptt" type="text" class="form-control pttInput" placeholder="Ptt" >
+      <span class="errorPtt" v-if="v$.mesto.ptt.$error">{{v$.mesto.ptt.$errors[0].$message}}</span>
      </div>
      <div class="mb-2">
-      <input v-model="state.mesto.naziv" type="text" class="form-control" placeholder="Naziv" >
-      <span v-if="v$.mesto.naziv.$error">{{v$.mesto.naziv.$errors[0].$message}}</span>
-            <!-- pattern="^[A-Z]+[a-zA-Zs]{2,35}$" -->
+      <input v-model="mesto.naziv" type="text" class="form-control nazivInput" placeholder="Naziv" >
+      <span class="errorNaziv" v-if="v$.mesto.naziv.$error">{{v$.mesto.naziv.$errors[0].$message}}</span>
      </div>
      <div class="mb-2">
-      <input v-model="state.mesto.brojStanovnika" type="text" class="form-control" placeholder="Broj stanovnika">
-      <span v-if="v$.mesto.brojStanovnika.$error">{{v$.mesto.brojStanovnika.$errors[0].$message}}</span>
+      <input v-model="mesto.brojStanovnika" type="text" class="form-control brojStanovnikaInput" placeholder="Broj stanovnika">
+      <span class="errorBrojStanovnika" v-if="v$.mesto.brojStanovnika.$error">{{v$.mesto.brojStanovnika.$errors[0].$message}}</span>
      </div>
      <div class="mt-3">
-      <input type="submit" class="btn btn-success text-white" value="Dodaj">
+      <input id="submit" type="submit" class="btn btn-success text-white" value="Dodaj">
      </div>
     </form>
    </div>
@@ -64,81 +63,65 @@
 <script>
 import {MestoService} from '@/services/MestoService';
 import Spinner from '@/components/Spinner.vue'
-import useValidate from '@vuelidate/core'
+import { useVuelidate } from '@vuelidate/core'
 import { required, minLength, maxLength, numeric, minValue, helpers } from '@vuelidate/validators'
-import {reactive, computed} from 'vue'
 
+const nameregex = helpers.regex(/^[A-Z][a-zA-Z\s]*$/)
 export default{
- name: "AddMesto",
- components: {
-  Spinner
- },
- setup(){
-  const state = reactive({
-    mesto:{
-      ptt: '',
-      naziv: '',
-      brojStanovnika: '',
-    }
-  })
-  const rules = computed(() => {
-   return{
-    mesto:{
-      ptt: { 
-       required: helpers.withMessage('Polje ne moze biti prazno', required),
-       numeric: helpers.withMessage('Polje moze sadrzati samo cifre', numeric),
-       maxLength: helpers.withMessage('Polje mora imati 5 cifara', maxLength(5)),
-       minLength: helpers.withMessage('Polje mora imati 5 cifara', minLength(5))
-       },
-      naziv: { 
-       required: helpers.withMessage('Polje ne moze biti prazno', required),
-       nameregex: helpers.withMessage('Polje mora pocinjati velikim slovom', nameregex),
-       maxLength: helpers.withMessage('Polje mora imati maksimum 35 karaktera', maxLength(35)),
-       minLength: helpers.withMessage('Polje mora imati minimum 2 karaktera', minLength(2))
-       },
-      brojStanovnika: { 
-        required: helpers.withMessage('Polje ne moze biti prazno', required),
-        numeric: helpers.withMessage('Polje moze sadrzati samo cifre', numeric),
-        minValue: helpers.withMessage('Polje mora biti vece od nule', minValue(1))
-       },
-    }
-   }
-  })
-  const nameregex = helpers.regex(/^[A-Z][a-zA-Z\s]*$/)
-  const v$ = useValidate(rules,state)
-
-  return{
-   state,
-   v$
-  }
- },
-
- // data: function(){
- //  return{
- //   mesto:{
- //    ptt: '',
- //    naziv: '',
- //    brojStanovnika: ''
- //   }
- //  }
- // },
- methods: {
-  mestoCreate: async function(){
-   this.v$.$validate();
-   if(!this.v$.$error){
-      try{
-       let response = await MestoService.createMesto(this.state.mesto);
-       if(response){
-        return this.$router.push('/mesto');
-       }else{
-        return this.$router.push('/mesto/add')
-       }
-      }catch(error){
-       console.log(error);
+  name: "AddMesto",
+  components: {
+    Spinner
+  },
+  setup: () => ({ v$: useVuelidate() }),
+  data: function(){
+    return{
+      mesto:{
+        ptt: '',
+        naziv: '',
+        brojStanovnika: ''
       }
-   }
+    }
+  },
+  validations (){
+    return{
+      mesto:{
+        ptt: { 
+          required: helpers.withMessage('Polje ne moze biti prazno', required),
+          numeric: helpers.withMessage('Polje moze sadrzati samo cifre', numeric),
+          maxLength: helpers.withMessage('Polje mora imati 5 cifara', maxLength(5)),
+          minLength: helpers.withMessage('Polje mora imati 5 cifara', minLength(5))
+        },
+        naziv: { 
+          required: helpers.withMessage('Polje ne moze biti prazno', required),
+          nameregex: helpers.withMessage('Polje mora pocinjati velikim slovom', nameregex),
+          maxLength: helpers.withMessage('Polje mora imati maksimum 35 karaktera', maxLength(35)),
+          minLength: helpers.withMessage('Polje mora imati minimum 2 karaktera', minLength(2))
+        },
+        brojStanovnika: { 
+          required: helpers.withMessage('Polje ne moze biti prazno', required),
+          numeric: helpers.withMessage('Polje moze sadrzati samo cifre', numeric),
+          minValue: helpers.withMessage('Polje mora biti vece od nule', minValue(1))
+        },
+      }
+    }
+  },
+  methods: {
+    mestoCreate: async function(){
+      this.v$.$validate();
+      if(!this.v$.$error){
+        try{
+          let response = await MestoService.createMesto(this.mesto);
+        if(response){
+          return this.$router.push('/mesto');
+        }else{
+          return this.$router.push('/mesto/add')
+        }
+        }catch(error){
+          console.log(error);
+        }
+      }
+    }
   }
- }
 }
 
 </script>
@@ -152,6 +135,5 @@ export default{
 }
 .form-control{
  color: #198754;
- /* opacity: 0.6; */
 }
 </style>

@@ -28,21 +28,22 @@
   </div>
  </div>
 
- <div class="container mt-3" v-if="!loading && isDone()">
+ <!-- <div class="container mt-3" v-if="!loading && isDone()"> -->
+  <div class="container mt-3" v-if="!loading && isDone()">
   <div class="row">
    <div class="col-md-4">
     <form action="" @submit.prevent="updateMesto()">
      <div class="mb-2">
-      <input v-model="mesto.ptt" type="text" class="form-control" placeholder="Ptt">
-      <span v-if="v$.mesto.ptt.$error">{{v$.mesto.ptt.$errors[0].$message}}</span>
+      <input v-model="mesto.ptt" type="text" class="form-control pttInput" placeholder="Ptt">
+      <span class="errorPtt" v-if="v$.mesto.ptt.$error">{{v$.mesto.ptt.$errors[0].$message}}</span>
      </div>
      <div class="mb-2">
-      <input v-model="mesto.naziv" type="text" class="form-control" placeholder="Naziv">
-      <span v-if="v$.mesto.naziv.$error">{{v$.mesto.naziv.$errors[0].$message}}</span>
+      <input v-model="mesto.naziv" type="text" class="form-control nazivInput" placeholder="Naziv">
+      <span class="errorNaziv" v-if="v$.mesto.naziv.$error">{{v$.mesto.naziv.$errors[0].$message}}</span>
      </div>
      <div class="mb-2">
-      <input v-model="mesto.brojStanovnika" type="text" class="form-control" placeholder="Broj stanovnika">
-      <span v-if="v$.mesto.brojStanovnika.$error">{{v$.mesto.brojStanovnika.$errors[0].$message}}</span>
+      <input v-model="mesto.brojStanovnika" type="text" class="form-control brojStanovnikaInput" placeholder="Broj stanovnika">
+      <span class="errorBrojStanovnika" v-if="v$.mesto.brojStanovnika.$error">{{v$.mesto.brojStanovnika.$errors[0].$message}}</span>
      </div>
      <div class="mt-3">
       <input type="submit" class="btn btn-success text-white" value="Izmeni">
@@ -72,6 +73,7 @@ export default{
  },
  setup: () => ({ v$: useVuelidate() }),
  data: function(){
+  // console.log('ovdeee :', this.$route);
   return{
    mestoId: this.$route.params.mestoId,
    loading: false,

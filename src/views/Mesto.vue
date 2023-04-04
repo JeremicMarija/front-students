@@ -36,12 +36,12 @@
       </tr>
      </thead>
      <tbody>
-      <tr v-for="mesto of mestoArr" :key="mesto">
+      <tr v-for="mesto of mestoArr" :key="mesto" data-test="mesto">
        <td>{{mesto.ptt}}</td>
        <td>{{mesto.naziv}}</td>
        <td>{{mesto.brojStanovnika}}</td>
        <td>
-        <router-link :to="`/mesto/update/${mesto.ptt}`" class="btn btn-success btn-sm">Izmeni</router-link>
+        <router-link :to="`/mesto/update/${mesto.ptt}`" class="edit btn btn-success btn-sm">Izmeni</router-link>
         <button @click="deleteMesto(mesto.ptt)" class="btn btn-danger btn-sm mx-2">Obriši</button>
         </td>
       </tr>

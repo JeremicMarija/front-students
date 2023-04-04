@@ -34,7 +34,7 @@
     <form action="" @submit.prevent="fakultetCreate()">
      <div class="mb-2">
       <input v-model="fakultet.maticniBroj" type="text" class="form-control" placeholder="Matični Broj">
-      <span v-if="v$.fakultet.maticniBroj.$error">{{v$.fakultet.maticniBroj.$errors[0].$message}}</span>
+      <span class="errorMaticniBroj" v-if="v$.fakultet.maticniBroj.$error">{{v$.fakultet.maticniBroj.$errors[0].$message}}</span>
      </div>
      <div class="mb-2">
       <input v-model="fakultet.naziv" type="text" class="form-control" placeholder="Naziv">

@@ -45,7 +45,6 @@
          <option :value="mesto.ptt" v-for="mesto of mestoArr" :key="mesto.ptt">{{mesto.naziv}}</option>
       </select>
       <span v-if="v$.fakultet.mestoId.$error">{{v$.fakultet.mestoId.$errors[0].$message}}</span>
-      <!-- <input disabled :value="mesto.naziv" type="text" class="form-control"> -->
      </div>
      <div class="mt-3">
       <input type="submit" class="btn btn-success text-white" value="Izmeni">
@@ -118,12 +117,9 @@ export default{
    this.loading = true;
    let response = await FakultetService.getFakultet(this.fakultetId);
    this.fakultet = response.data;
-   // console.log(response.data);
    let mestoResponse = await MestoService.getMesto(this.fakultet.mestoId);
    console.log(mestoResponse.data);
-   // this.mesto = mestoResponse.data;
    let responseMestoAll = await MestoService.getAllMesta();
-   // console.log(responseMestoAll);
    this.mestoArr = responseMestoAll.data;
    this.loading = false;
   } catch (error) {
