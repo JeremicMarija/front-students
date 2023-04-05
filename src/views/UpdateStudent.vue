@@ -32,24 +32,24 @@
    <div class="col-md-4">
     <form action="" @submit.prevent="studentUpdate()">
      <div class="mb-2">
-      <input v-model="student.brojIndeksa" type="text" class="form-control" placeholder="Broj indeksa">
-      <span v-if="v$.student.brojIndeksa.$error">{{v$.student.brojIndeksa.$errors[0].$message}}</span>
+      <input v-model="student.brojIndeksa" type="text" class="form-control inputBrojIndeksa" placeholder="Broj indeksa">
+      <span class="errorBrojIndeksa" v-if="v$.student.brojIndeksa.$error">{{v$.student.brojIndeksa.$errors[0].$message}}</span>
      </div>
      <div class="mb-2">
-      <input v-model="student.ime" type="text" class="form-control" placeholder="Ime">
-      <span v-if="v$.student.ime.$error">{{v$.student.ime.$errors[0].$message}}</span>
+      <input v-model="student.ime" type="text" class="form-control inputIme" placeholder="Ime">
+      <span class="errorIme" v-if="v$.student.ime.$error">{{v$.student.ime.$errors[0].$message}}</span>
      </div>
      <div class="mb-2">
-      <input v-model="student.prezime" type="text" class="form-control" placeholder="Prezime">
-      <span v-if="v$.student.prezime.$error">{{v$.student.prezime.$errors[0].$message}}</span>
+      <input v-model="student.prezime" type="text" class="form-control inputPrezime" placeholder="Prezime">
+      <span class="errorPrezime" v-if="v$.student.prezime.$error">{{v$.student.prezime.$errors[0].$message}}</span>
      </div>
      <div class="mb-2">
-      <input v-model="student.datumRodjenja" type="date" class="form-control" placeholder="Datum rodjenja">
-      <span v-if="v$.student.datumRodjenja.$error">{{v$.student.datumRodjenja.$errors[0].$message}}</span>
+      <input v-model="student.datumRodjenja" type="date" class="form-control inputDatumRodjenja" placeholder="Datum rodjenja">
+      <span class="errorDatumRodjenja" v-if="v$.student.datumRodjenja.$error">{{v$.student.datumRodjenja.$errors[0].$message}}</span>
      </div>
      <div class="mb-2">
-      <input v-model="student.jmbg" type="text" class="form-control" placeholder="JMBG">
-      <span v-if="v$.student.jmbg.$error">{{v$.student.jmbg.$errors[0].$message}}</span>
+      <input v-model="student.jmbg" type="text" class="form-control inputJMBG" placeholder="JMBG">
+      <span class="errorJMBG" v-if="v$.student.jmbg.$error">{{v$.student.jmbg.$errors[0].$message}}</span>
      </div>
      <div class="mb-2">
       <VueMultiselect
