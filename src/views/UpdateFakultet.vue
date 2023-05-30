@@ -59,7 +59,6 @@
   </div>
  </div>
 
- <!-- <pre>{{fakultet}}</pre> -->
 </template>
 
 <script>
