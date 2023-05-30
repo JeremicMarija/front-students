@@ -26,7 +26,7 @@ test("first test routing, then test validation of input maticniBroj", async () =
 
   })
   const fakultetArray = (await mockFakultetArr).data;
-  expect(fakultetArray).toHaveLength(4);
+  expect(fakultetArray).toHaveLength(6);
   await wrapper.setData({fakultetArr: fakultetArray});
   expect(wrapper.html()).toContain('Izmeni');
 
@@ -97,7 +97,7 @@ test("first test routing, then test validation of input naziv", async () => {
 
   })
   const fakultetArray = (await mockFakultetArr).data;
-  expect(fakultetArray).toHaveLength(4);
+  expect(fakultetArray).toHaveLength(6);
   await wrapper.setData({fakultetArr: fakultetArray});
   expect(wrapper.html()).toContain('Izmeni');
 

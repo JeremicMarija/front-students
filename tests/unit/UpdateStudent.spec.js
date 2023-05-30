@@ -20,7 +20,7 @@ test("first test routing, then test validation of input BROJ INDEKSA", async () 
   })
 
   const studentArray = (await mockStudentArr).data;
-  expect(studentArray).toHaveLength(2);
+  expect(studentArray).toHaveLength(3);
   await wrapper.setData({studentArr: studentArray});
   expect(wrapper.html()).toContain('Izmeni');
 
@@ -80,7 +80,7 @@ test("first test routing, then test validation of input IME", async () =>{
   })
 
   const studentArray = (await mockStudentArr).data;
-  expect(studentArray).toHaveLength(2);
+  expect(studentArray).toHaveLength(3);
   await wrapper.setData({studentArr: studentArray});
   expect(wrapper.html()).toContain('Izmeni');
 
@@ -155,7 +155,7 @@ test("first test routing, then test validation of input PREZIME", async () =>{
   })
 
   const studentArray = (await mockStudentArr).data;
-  expect(studentArray).toHaveLength(2);
+  expect(studentArray).toHaveLength(3);
   await wrapper.setData({studentArr: studentArray});
   expect(wrapper.html()).toContain('Izmeni');
 
@@ -229,7 +229,7 @@ test("first test routing, then test validation of input DATUM RODJENJA", async (
   })
 
   const studentArray = (await mockStudentArr).data;
-  expect(studentArray).toHaveLength(2);
+  expect(studentArray).toHaveLength(3);
   await wrapper.setData({studentArr: studentArray});
   expect(wrapper.html()).toContain('Izmeni');
 
@@ -284,7 +284,7 @@ test("first test routing, then test validation of input JMBG", async () =>{
   })
 
   const studentArray = (await mockStudentArr).data;
-  expect(studentArray).toHaveLength(2);
+  expect(studentArray).toHaveLength(3);
   await wrapper.setData({studentArr: studentArray});
   expect(wrapper.html()).toContain('Izmeni');
 

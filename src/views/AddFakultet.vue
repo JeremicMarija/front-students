@@ -60,7 +60,7 @@
   </div>
  </div>
 
- <pre>{{fakultet}}</pre>
+ <!-- <pre>{{fakultet}}</pre> -->
 </template>
 
 <script>

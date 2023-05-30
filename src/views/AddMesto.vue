@@ -57,7 +57,7 @@
   </div>
  </div>
 
- <pre>{{mesto}}</pre>
+ <!-- <pre>{{mesto}}</pre> -->
 </template>
 
 <script>
